@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        $user->update($request->validated()); //TODO CHECK FOR VALIDATION ROLES
+        $user->update($request->validated());
 
         return redirect()->route('user.index');
     }
