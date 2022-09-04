@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\MediaController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
@@ -20,19 +21,26 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+//USERS ROUTING
 Route::resource('/user', UserController::class)
     ->except('show');
-
+//CLIENTS ROUTING
 Route::resource('/client', ClientController::class)
     ->except('show');
-
+//PROJECTS ROUTING
 Route::resource('/project', ProjectController::class)
     ->except('show');
-
+//TASKS ROUTING
 Route::resource('/task', TaskController::class)
     ->except('show');
-
+//MEDIA ROUTING
+Route::post('/media/{model}/{id}/upload', [MediaController::class])
+    ->name('media.upload');
+Route::get('/media/{mediaItem}/download', [MediaController::class])
+    ->name('media.download');
+Route::delete('media/{model}/{id}/{mediaItem}/delete', [MediaController::class])
+    ->name('media.delete');
+//DASHBOARD ROUTING
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
