@@ -45,7 +45,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request, User $user): Redirector|RedirectResponse|Application
     {
-        $user->create($request);
+        $user->create($request->validated());
 
         return redirect()->route('user.index');
     }
@@ -70,7 +70,7 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user): RedirectResponse
     {
-        $user->update($request); //TODO CHECK FOR VALIDATION ROLES
+        $user->update($request->validated()); //TODO CHECK FOR VALIDATION ROLES
 
         return redirect()->route('user.index');
     }

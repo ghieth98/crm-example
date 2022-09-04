@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('company_name');
             $table->string('company_address');
             $table->string('company_city');
-            $table->string('company_zip');
+            $table->integer('company_zip');
             $table->integer('company_vat');
             $table->softDeletes();
             $table->timestamps();
