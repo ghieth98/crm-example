@@ -23,7 +23,8 @@ class TaskController extends Controller
      */
     public function index(Task $tasks): View|Factory|Application
     {
-        $tasks->with(['user', 'client', 'project']);
+        $tasks->with(['user', 'client', 'project'])->filterStatus(request('status'))
+            ->paginate(20);
 
         return view('task.view', compact('tasks'));
     }

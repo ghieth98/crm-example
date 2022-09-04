@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Filter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +13,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
 
 class Project extends Model implements HasMedia
 {
-    use HasFactory, SoftDeletes,InteractsWithMedia;
+    use HasFactory, SoftDeletes,InteractsWithMedia, Filter;
 
     protected $fillable = [
         'title',
@@ -22,6 +23,8 @@ class Project extends Model implements HasMedia
         'user_id',
         'client_id',
     ];
+
+    public const STATUS = ['open', 'in progress', 'pending', 'waiting client', 'blocked', 'closed'];
 
     public function user(): BelongsTo
     {

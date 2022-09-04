@@ -21,7 +21,8 @@ class ProjectController extends Controller
      */
     public function index(): View|Factory|Application
     {
-        $projects = Project::with(['user', 'client'])->paginate(20);
+        $projects = Project::with(['user', 'client'])->filterStatus(request('status'))
+            ->paginate(20);
 
         return view('project.index', compact('projects'));
     }
