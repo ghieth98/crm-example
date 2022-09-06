@@ -30,7 +30,7 @@ class UpdateTaskRequest extends FormRequest
             'status' => 'required',
             'user_id' => 'required|exists:users,id ',
             'client_id' => 'required|exists:clients,id',
-            'product_id' => 'required|exists:clients,id',
+            'project_id' => 'required|exists:projects,id',
         ];
     }
 }

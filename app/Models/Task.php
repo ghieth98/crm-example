@@ -21,8 +21,10 @@ class Task extends Model implements HasMedia
         'status',
         'user_id',
         'client_id',
-        'product_id',
+        'project_id',
     ];
+
+    public const STATUS = ['open', 'in progress', 'pending', 'waiting client', 'blocked', 'closed'];
 
     public function user(): BelongsTo
     {
