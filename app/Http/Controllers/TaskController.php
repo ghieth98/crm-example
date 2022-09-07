@@ -8,6 +8,7 @@ use App\Models\Task;
 use App\Http\Requests\StoreTaskRequest;
 use App\Http\Requests\UpdateTaskRequest;
 use App\Models\User;
+use App\Notifications\TaskAssigned;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -36,7 +37,7 @@ class TaskController extends Controller
      */
     public function create(): View|Factory|Application
     {
-        $users = User::all()->pluck('first_name', 'id');
+        $users = User::all()->pluck('full_name', 'id');
         $clients = Client::all()->pluck('company_name', 'id');
         $projects = Project::all()->pluck('title', 'id');
 
@@ -53,6 +54,9 @@ class TaskController extends Controller
     public function store(StoreTaskRequest $request, Task $task): RedirectResponse
     {
         $task->create($request->validated());
+        $user = User::find($request->user_id);
+
+        $user->notify(new TaskAssigned($task));
 
         return redirect()->route('task.index');
     }
@@ -76,7 +80,7 @@ class TaskController extends Controller
      */
     public function edit(Task $task): View|Factory|Application
     {
-        $users = User::all()->pluck('first_name', 'id');
+        $users = User::all()->pluck('full_name', 'id');
         $clients = Client::all()->pluck('company_name', 'id');
         $projects = Project::all()->pluck('title', 'id');
 

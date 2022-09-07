@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\User;
+use App\Notifications\ProjectAssigned;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -34,7 +35,7 @@ class ProjectController extends Controller
      */
     public function create(): View|Factory|Application
     {
-        $users = User::all()->pluck('first_name', 'id');
+        $users = User::all()->pluck('full_name', 'id');
         $clients = Client::all()->pluck('company_name', 'id');
 
         return view('project.create', compact('users', 'clients'));
@@ -50,6 +51,9 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request, Project $project): RedirectResponse
     {
         $project->create($request->validated());
+        $user = User::find($request->user_id);
+
+        $user->notify(new ProjectAssigned($project));
 
         return redirect()->route('project.index');
     }
@@ -73,7 +77,7 @@ class ProjectController extends Controller
      */
     public function edit(Project $project): View|Factory|Application
     {
-        $users = User::all()->pluck('first_name', 'id');
+        $users = User::all()->pluck('full_name', 'id');
         $clients = Client::all()->pluck('company_name', 'id');
 
         return view('project.edit', compact('project', 'users', 'clients'));

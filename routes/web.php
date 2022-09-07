@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\UserController;
@@ -40,6 +41,15 @@ Route::get('/media/{mediaItem}/download', [MediaController::class])
     ->name('media.download');
 Route::delete('media/{model}/{id}/{mediaItem}/delete', [MediaController::class])
     ->name('media.delete');
+
+
+Route::get('/notification', [NotificationController::class, 'index'])
+    ->name('notification.index');
+Route::put('/notification/{notification}', [NotificationController::class, 'update'])
+    ->name('notification.update');
+Route::delete('notification/destroy', [NotificationController::class, 'destroy'])
+    ->name('notification.destroy');
+
 //DASHBOARD ROUTING
 Route::get('/dashboard', function () {
     return view('dashboard');
