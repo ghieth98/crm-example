@@ -5,6 +5,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TermsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,11 +24,8 @@ Route::permanentRedirect('/', 'login');
 Route::get('/login', function (){
     return view('auth.login');
 });
-//Route::get('/login', function (){
-//    return view('auth.login');
-//});
-//\Illuminate\Support\Facades\Auth::routes();
-Route::middleware('auth')->group(function () {
+
+Route::middleware(['auth', 'termsAccepted'])->group(function () {
 //USERS ROUTING
     Route::resource('/user', UserController::class)
         ->except('show');
@@ -55,6 +53,12 @@ Route::put('/notification/{notification}', [NotificationController::class, 'upda
     ->name('notification.update');
 Route::delete('notification/destroy', [NotificationController::class, 'destroy'])
     ->name('notification.destroy');
+
+//TERMS ROUTING
+Route::get('/terms', [TermsController::class, 'index'])->middleware('auth')
+    ->name('terms.index');
+Route::post('/terms', [TermsController::class, 'store'])->middleware('auth')
+    ->name('terms.store');
 
 //DASHBOARD ROUTING
 Route::get('/dashboard', function () {
