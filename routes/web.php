@@ -19,21 +19,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::permanentRedirect('/', 'login');
+Route::get('/login', function (){
+    return view('auth.login');
 });
+//Route::get('/login', function (){
+//    return view('auth.login');
+//});
+//\Illuminate\Support\Facades\Auth::routes();
+Route::middleware('auth')->group(function () {
 //USERS ROUTING
-Route::resource('/user', UserController::class)
-    ->except('show');
+    Route::resource('/user', UserController::class)
+        ->except('show');
 //CLIENTS ROUTING
-Route::resource('/client', ClientController::class)
-    ->except('show');
+    Route::resource('/client', ClientController::class)
+        ->except('show');
 //PROJECTS ROUTING
-Route::resource('/project', ProjectController::class)
-    ->except('show');
+    Route::resource('/project', ProjectController::class);
 //TASKS ROUTING
-Route::resource('/task', TaskController::class)
-    ->except('show');
+    Route::resource('/task', TaskController::class);
+});
+
 //MEDIA ROUTING
 Route::post('/media/{model}/{id}/upload', [MediaController::class])
     ->name('media.upload');
@@ -42,7 +48,7 @@ Route::get('/media/{mediaItem}/download', [MediaController::class])
 Route::delete('media/{model}/{id}/{mediaItem}/delete', [MediaController::class])
     ->name('media.delete');
 
-
+//NOTIFICATIONS ROUTING
 Route::get('/notification', [NotificationController::class, 'index'])
     ->name('notification.index');
 Route::put('/notification/{notification}', [NotificationController::class, 'update'])

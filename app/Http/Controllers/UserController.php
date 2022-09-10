@@ -19,9 +19,9 @@ class UserController extends Controller
      * @param User $users
      * @return Application|Factory|View
      */
-    public function index(User $users): View|Factory|Application
+    public function index(): View|Factory|Application
     {
-        $users->with('roles')->paginate(15);
+        $users = User::with('roles')->paginate(20);
 
         return view('user.index', compact('users'));
     }

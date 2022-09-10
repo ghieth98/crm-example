@@ -19,15 +19,14 @@ class TaskController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Task $tasks
      * @return Application|Factory|View
      */
-    public function index(Task $tasks): View|Factory|Application
+    public function index(): View|Factory|Application
     {
-        $tasks->with(['user', 'client', 'project'])->filterStatus(request('status'))
+        $tasks = Task::with(['user', 'client', 'project'])->filterStatus(request('status'))
             ->paginate(20);
 
-        return view('task.view', compact('tasks'));
+        return view('task.index', compact('tasks'));
     }
 
     /**
@@ -48,12 +47,11 @@ class TaskController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreTaskRequest $request
-     * @param Task $task
      * @return RedirectResponse
      */
-    public function store(StoreTaskRequest $request, Task $task): RedirectResponse
+    public function store(StoreTaskRequest $request): RedirectResponse
     {
-        $task->create($request->validated());
+        $task = Task::create($request->validated());
         $user = User::find($request->user_id);
 
         $user->notify(new TaskAssigned($task));
@@ -61,16 +59,17 @@ class TaskController extends Controller
         return redirect()->route('task.index');
     }
 
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param Task $task
-//     * @return Response
-//     */
-//    public function show(Task $task)
-//    {
-//        //
-//    }
+    /**
+     * Display the specified resource.
+     *
+     * @param Task $task
+     * @return Application|Factory|View
+     */
+    public function show(Task $task): View|Factory|Application
+    {
+        $task->load('user', 'client');
+        return view('task.show', compact('task'));
+    }
 
     /**
      * Show the form for editing the specified resource.

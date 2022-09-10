@@ -16,12 +16,11 @@ class ClientController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param Client $clients
      * @return Application|Factory|View
      */
-    public function index(Client $clients): View|Factory|Application
+    public function index(): View|Factory|Application
     {
-        $clients->paginate(20);
+        $clients = Client::paginate(20);
         return view('client.index', compact('clients'));
     }
 
@@ -39,12 +38,11 @@ class ClientController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreClientRequest $request
-     * @param Client $client
      * @return RedirectResponse
      */
-    public function store(StoreClientRequest $request, Client $client): RedirectResponse
+    public function store(StoreClientRequest $request): RedirectResponse
     {
-        $client->create($request->validated());
+        Client::create($request->validated());
 
         return redirect()->route('client.index');
     }

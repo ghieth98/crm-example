@@ -58,16 +58,17 @@ class ProjectController extends Controller
         return redirect()->route('project.index');
     }
 
-//    /**
-//     * Display the specified resource.
-//     *
-//     * @param Project $project
-//     * @return Response
-//     */
-//    public function show(Project $project)
-//    {
-//        //
-//    }
+    /**
+     * Display the specified resource.
+     *
+     * @param Project $project
+     * @return Application|Factory|View
+     */
+    public function show(Project $project): View|Factory|Application
+    {
+        $project->load(['tasks', 'user', 'client']);
+        return view('project.show', compact('project'));
+    }
 
     /**
      * Show the form for editing the specified resource.
