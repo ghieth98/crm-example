@@ -18,7 +18,7 @@
 <body class="c-app">
 <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
     <div class="c-sidebar-brand d-lg-down-none">
-        CRM-Demo
+        <a href="{{ route('home') }}">CRM-Demo</a>
     </div>
     @include('partials.menu')
     <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent"

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
@@ -27,9 +28,10 @@ Route::get('/login', function (){
 });
 
 Route::middleware(['auth', 'termsAccepted'])->group(function () {
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 //USERS ROUTING
     Route::resource('/user', UserController::class)
-        ->except('show');
+        ->middleware('role:admin');
 //CLIENTS ROUTING
     Route::resource('/client', ClientController::class)
         ->except('show');
