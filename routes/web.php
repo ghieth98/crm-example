@@ -3,6 +3,7 @@
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TermsController;
@@ -53,6 +54,14 @@ Route::put('/notification/{notification}', [NotificationController::class, 'upda
     ->name('notification.update');
 Route::delete('notification/destroy', [NotificationController::class, 'destroy'])
     ->name('notification.destroy');
+
+//PROFILE ROUTING
+Route::get('/profile', [ProfileController::class, 'index'])
+    ->name('profile.index');
+Route::put('/profile', [ProfileController::class, 'update'])
+    ->name('profile.update');
+Route::put('/profile/change-password', [ProfileController::class, 'changePassword'])
+    ->name('profile.changePassword');
 
 //TERMS ROUTING
 Route::get('/terms', [TermsController::class, 'index'])->middleware('auth')

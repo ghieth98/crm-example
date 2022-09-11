@@ -23,7 +23,7 @@ class ProjectController extends Controller
     public function index(): View|Factory|Application
     {
         $projects = Project::with(['user', 'client'])->filterStatus(request('status'))
-            ->paginate(20);
+            ->paginate(5);
 
         return view('project.index', compact('projects'));
     }
@@ -93,6 +93,12 @@ class ProjectController extends Controller
      */
     public function update(UpdateProjectRequest $request, Project $project): RedirectResponse
     {
+        if ($project->user_id !== $request->user_id) {
+            $user = User::find($request->user_id);
+
+            $user->notify(new ProjectAssigned($project));
+        }
+
         $project->update($request->validated());
 
         return redirect()->route('project.index');
