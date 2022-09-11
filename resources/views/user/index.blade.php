@@ -33,9 +33,9 @@
                     <th>Last name</th>
                     <th>Email</th>
                     <th>Role</th>
-{{--                    @if ($withDeleted)--}}
-{{--                        <th>Deleted at</th>--}}
-{{--                    @endif--}}
+                    {{--                    @if ($withDeleted)--}}
+                    {{--                        <th>Deleted at</th>--}}
+                    {{--                    @endif--}}
                     <th></th>
                 </tr>
                 </thead>
@@ -51,9 +51,9 @@
                                 {{ $role->name }}
                             @endforeach
                         </td>
-{{--                        @if ($withDeleted)--}}
-{{--                            <td>{{ $user->deleted_at ?? 'Not deleted' }}</td>--}}
-{{--                        @endif--}}
+                        {{--                        @if ($withDeleted)--}}
+                        {{--                            <td>{{ $user->deleted_at ?? 'Not deleted' }}</td>--}}
+                        {{--                        @endif--}}
                         <td>
                             <a class="btn btn-sm btn-info" href="{{ route('user.edit', $user) }}">
                                 Edit
@@ -71,7 +71,7 @@
                 </tbody>
             </table>
 
-            {{--             {{ $users->withQueryString()->links() }} --}}
+            {{ $users->withQueryString()->links() }}
         </div>
     </div>
 

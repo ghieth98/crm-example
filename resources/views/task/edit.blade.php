@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-md-8">
-            <form action="{{ route('task.update') }}" method="POST">
+            <form action="{{ route('task.update', $task) }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -61,7 +61,7 @@
                                 <div class="invalid-feedback">
                                     {{ $errors->first('user') }}
                                 </div>
-                            @endif -->
+                            @endif
                             <span class="help-block"> </span>
                         </div>
 
@@ -128,7 +128,8 @@
             <div class="card">
                 <div class="card-header">Files</div>
                 <div class="card-body">
-                    <form action="{{ route('media.store') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('media.upload', ['Task', $task]) }}" method="POST"
+                          enctype="multipart/form-data">
                         @csrf
 
                         <div class="form-group">

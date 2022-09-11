@@ -24,7 +24,7 @@ class TaskController extends Controller
     public function index(): View|Factory|Application
     {
         $tasks = Task::with(['user', 'client', 'project'])->filterStatus(request('status'))
-            ->paginate(20);
+            ->paginate(5);
 
         return view('task.index', compact('tasks'));
     }
@@ -83,7 +83,7 @@ class TaskController extends Controller
         $clients = Client::all()->pluck('company_name', 'id');
         $projects = Project::all()->pluck('title', 'id');
 
-        return view('task.edit', compact('users', 'clients', 'projects', 'task'));
+        return view('task.edit', compact('task', 'users', 'clients', 'projects'));
     }
 
     /**
@@ -95,6 +95,12 @@ class TaskController extends Controller
      */
     public function update(UpdateTaskRequest $request, Task $task): RedirectResponse
     {
+        if ($task->user_id !== $request->user_id) {
+            $user = User::find($request->user_id);
+
+            $user->notify(new TaskAssigned($task));
+        }
+
         $task->update($request->validated());
 
         return redirect()->route('task.index');

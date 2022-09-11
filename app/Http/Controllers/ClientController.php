@@ -20,7 +20,7 @@ class ClientController extends Controller
      */
     public function index(): View|Factory|Application
     {
-        $clients = Client::paginate(20);
+        $clients = Client::paginate(5);
         return view('client.index', compact('clients'));
     }
 

@@ -5,37 +5,37 @@
         @csrf
 
         <div class="card">
-            <div class="card-header">Contact information</div>
+            <div class="card-header">Client information</div>
 
             <div class="card-body">
                 <div class="form-group">
-                    <label class="required" for="contact_name">Name</label>
-                   <input class="form-control {{ $errors->has('contact_name') ? 'is-invalid' : '' }}" type="text" name="contact_name" id="contact_name" value="{{ old('contact_name') }}" required>
-                    @if($errors->has('contact_name'))
+                    <label class="required" for="client_name">Name</label>
+                   <input class="form-control {{ $errors->has('client_name') ? 'is-invalid' : '' }}" type="text" name="client_name" id="client_name" value="{{ old('client_name') }}" required>
+                    @if($errors->has('client_name'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('contact_name') }}
+                            {{ $errors->first('client_name') }}
                         </div>
                     @endif
                     <span class="help-block"> </span>
                 </div>
 
                 <div class="form-group">
-                    <label class="required" for="contact_email">Email</label>
-                     <input class="form-control {{ $errors->has('contact_email') ? 'is-invalid' : '' }}" type="text" name="contact_email" id="contact_email" value="{{ old('contact_email') }}" required>
-                    @if($errors->has('contact_email'))
+                    <label class="required" for="client_email">Email</label>
+                     <input class="form-control {{ $errors->has('client_email') ? 'is-invalid' : '' }}" type="text" name="client_email" id="client_email" value="{{ old('client_email') }}" required>
+                    @if($errors->has('client_email'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('contact_email') }}
+                            {{ $errors->first('client_email') }}
                         </div>
                     @endif
                     <span class="help-block"> </span>
                 </div>
 
                 <div class="form-group">
-                    <label for="contact_phone_number">Phone number</label>
-                     <input class="form-control {{ $errors->has('contact_phone_number') ? 'is-invalid' : '' }}" type="text" name="contact_phone_number" id="contact_phone_number" value="{{ old('contact_phone_number') }}">
-                    @if($errors->has('contact_phone_number'))
+                    <label for="client_phone_number">Phone number</label>
+                     <input class="form-control {{ $errors->has('client_phone_number') ? 'is-invalid' : '' }}" type="text" name="client_phone_number" id="client_phone_number" value="{{ old('client_phone_number') }}">
+                    @if($errors->has('client_phone_number'))
                         <div class="invalid-feedback">
-                            {{ $errors->first('contact_phone_number') }}
+                            {{ $errors->first('client_phone_number') }}
                         </div>
                     @endif
                     <span class="help-block"> </span>

@@ -73,7 +73,7 @@
                 </tbody>
             </table>
 
-            {{--            {{ $projects->withQueryString()->links() }} --}}
+            {{ $projects->withQueryString()->links() }}
         </div>
     </div>
 
