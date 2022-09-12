@@ -54,7 +54,9 @@
                                     name="user_id" id="user_id" required>
                                 @foreach($users as $id => $entry)
                                     <option
-                                        value="{{ $id }}" {{ (old('user_id') ? old('user_id') : $task->user->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                        value="{{ $id }}" {{ (old('user_id') ? old('user_id') : $task->user->id ?? '') == $id ? 'selected' : '' }}>
+                                        {{ $entry }}
+                                    </option>
                                 @endforeach
                             </select>
                             @if($errors->has('user_id'))
@@ -88,7 +90,9 @@
                                     name="project_id" id="project_id" required>
                                 @foreach($projects as $id => $entry)
                                     <option
-                                        value="{{ $id }}" {{ (old('project_id') ? old('project_id') : $task->project->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                                        value="{{ $id }}" {{ (old('project_id') ? old('project_id') : $task->project->id ?? '') == $id ? 'selected' : '' }}>
+                                        {{ $entry }}
+                                    </option>
                                 @endforeach
                             </select>
                             @if($errors->has('project_id'))
@@ -105,7 +109,9 @@
                                     id="status" required>
                                 @foreach(App\Models\Task::STATUS as $status)
                                     <option
-                                        value="{{ $status }}" {{ (old('status') ? old('status') : $task->status ?? '') == $status ? 'selected' : '' }}>{{ ucfirst($status) }}</option>
+                                        value="{{ $status }}" {{ (old('status') ? old('status') : $task->status ?? '') == $status ? 'selected' : '' }}>
+                                        {{ ucfirst($status) }}
+                                    </option>
                                 @endforeach
                             </select>
                             @if($errors->has('status'))

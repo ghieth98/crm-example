@@ -13,7 +13,7 @@
     <!-- CoreUI CSS -->
     <link href="https://unpkg.com/@coreui/coreui@3.4/dist/css/coreui.min.css" rel="stylesheet"/>
     <link href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" rel="stylesheet"/>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body class="c-app flex-row align-items-center">
 @yield('content')

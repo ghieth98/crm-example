@@ -48,9 +48,9 @@ class ProjectController extends Controller
      * @param Project $project
      * @return RedirectResponse
      */
-    public function store(StoreProjectRequest $request, Project $project): RedirectResponse
+    public function store(StoreProjectRequest $request): RedirectResponse
     {
-        $project->create($request->validated());
+        $project = Project::create($request->validated());
         $user = User::find($request->user_id);
 
         $user->notify(new ProjectAssigned($project));
