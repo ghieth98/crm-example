@@ -49,6 +49,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public const FILTER = ['true', 'false'];
+
     public function projects(): HasMany
     {
         return $this->hasMany(Project::class);

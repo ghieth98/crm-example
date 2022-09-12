@@ -21,9 +21,16 @@ class UserController extends Controller
      */
     public function index(): View|Factory|Application
     {
-        $users = User::with('roles')->paginate(5);
+        $withDeleted = null;
 
-        return view('user.index', compact('users'));
+        if (in_array(request('deleted'), User::FILTER) && request('deleted') === true) {
+            $withDeleted = true;
+        }
+        $users = User::with('roles')->when($withDeleted, function ($query) use ($withDeleted) {
+            $query->withTrashed();
+        })->paginate(5);
+
+        return view('user.index', compact('users', 'withDeleted'));
     }
 
     /**
