@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\TaskAssigned as MailTaskAssigned;
 use App\Models\Client;
 use App\Models\Project;
 use App\Models\Task;
@@ -13,6 +14,7 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Mail;
 
 class TaskController extends Controller
 {
@@ -55,6 +57,7 @@ class TaskController extends Controller
         $user = User::find($request->user_id);
 
         $user->notify(new TaskAssigned($task));
+        Mail::to($user)->queue(new MailTaskAssigned($task));
 
         return redirect()->route('task.index');
     }
@@ -99,6 +102,7 @@ class TaskController extends Controller
             $user = User::find($request->user_id);
 
             $user->notify(new TaskAssigned($task));
+            Mail::to($user)->queue(new MailTaskAssigned($task));
         }
 
         $task->update($request->validated());
