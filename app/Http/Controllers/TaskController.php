@@ -14,6 +14,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 
 class TaskController extends Controller
@@ -118,6 +120,9 @@ class TaskController extends Controller
      */
     public function destroy(Task $task): RedirectResponse
     {
+        abort_if(Gate::denies('delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+
         $task->delete();
 
         return redirect()->route('task.index');

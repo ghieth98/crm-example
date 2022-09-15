@@ -10,6 +10,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class ClientController extends Controller
 {
@@ -80,6 +81,9 @@ class ClientController extends Controller
      */
     public function destroy(Client $client): RedirectResponse
     {
+        abort_if(Gate::denies('delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+
         $client->delete();
 
         return redirect()->route('client.index');

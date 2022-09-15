@@ -12,6 +12,8 @@ use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Gate;
 
 class ProjectController extends Controller
 {
@@ -112,6 +114,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project): RedirectResponse
     {
+        abort_if(Gate::denies('delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
+
+
         $project->delete();
 
         return redirect()->route('project.index');
