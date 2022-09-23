@@ -52,7 +52,7 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request, User $user): Redirector|RedirectResponse|Application
     {
-        $user->create($request->validated());
+        $user = User::create($request->validated());
 
         return redirect()->route('user.index');
     }
