@@ -23,12 +23,23 @@ class UpdateUserRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'first_name' => ['required', 'string', 'max:245'],
-            'last_name' => ['required', 'string', 'max:245'],
-            'address' => ['nullable'],
-            'email' => ['required', 'email','max:245', 'unique:users'],
-            'phone_number' => ['nullable'],
-        ];
+        $method = $this->method();
+        if ($method == 'PUT') {
+            return [
+                'firstName' => ['required', 'string', 'max:245'],
+                'lastName' => ['required', 'string', 'max:245'],
+                'address' => ['nullable'],
+                'email' => ['required', 'email', 'max:245', 'unique:users'],
+                'phoneNumber' => ['nullable'],
+            ];
+        } else {
+            return [
+                'firstName' => ['sometimes', 'required', 'string', 'max:245'],
+                'lastName' => ['sometimes', 'required', 'string', 'max:245'],
+                'address' => ['sometimes', 'required'],
+                'email' => ['sometimes', 'required', 'email', 'max:245', 'unique:users'],
+                'phoneNumber' => ['sometimes', 'nullable'],
+            ];
+        }
     }
 }
